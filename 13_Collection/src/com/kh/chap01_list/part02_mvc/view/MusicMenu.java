@@ -7,6 +7,7 @@ import com.kh.chap01_list.part02_mvc.controller.MusicController;
 import com.kh.chap01_list.part02_mvc.model.vo.Music;
 
 // view : 시각적인 요소 (출력 및 입력)
+
 public class MusicMenu {
 
 	private Scanner sc = new Scanner(System.in);
@@ -46,9 +47,9 @@ public class MusicMenu {
 			case 4:
 				deleteMusic();
 				break;
-			case 5:
+			case 5:updateMusic();
 				break;
-			case 6:
+			case 6:sortMusic();
 				break;
 			case 0:
 				System.out.println("프로그램 종료하겠습니다.");
@@ -151,6 +152,60 @@ public class MusicMenu {
 			//create read update delate
 			
 		}
-
-	
+		
+		
+		/**
+		 * 서브화면5. 특정곡을 찾아 수정하는 화면
+		 */
+		public void updateMusic(){
+			System.out.println("===곡 수정===");
+			// 수정하고자 하는 곡명, 수정내용(가수명), 수정내용(곡명)
+			System.out.println("수정하고자 하는 곡명 : ");
+			String title = sc.nextLine();
+			
+			System.out.print("수정내용(가수) : ");
+			String upArtist = sc.nextLine();
+			System.out.print("수정내용(곡명) : ");
+			String upTitle = sc.nextLine();
+			
+			// 수정요청! (MusicController 메소드 호출)
+			int result = mc.updateMusic(title, upArtist,upTitle);// 전달
+			// 똑같이 int형 result로 받아줌 
+			
+			if(result == 0) { // 수정할 곡 찾지 못함
+				System.out.println("수정할 곡 찾지 못했습니다.");
+			}else {
+				System.out.println("성공적으로 수정 되었습니다.");
+			}
+		}
+		
+		
+		/**
+		 * 서브화면6. 곡 정렬 후에 조회하는 화면
+		 */
+		public void sortMusic() {
+			System.out.println("==곡 정렬하기==");
+			System.out.println("1. 가수명 오름차순");
+			System.out.println("2. 가수명 내림차순");
+			System.out.println("3. 곡명 오름차순");
+			System.out.println("4. 곡명 내림차순");
+			
+			System.out.println("메뉴 : ");
+			int menu = sc.nextInt();
+			// 정렬 조회 요청 (MusicController에 메소드 호출)
+		
+			if(menu != 1 && menu != 2 && menu != 3 && menu != 4) {
+				System.out.println("잘못 입력했습니다.");
+				return;
+			}
+			
+			ArrayList<Music> sortList = mc.sortMusic(menu);
+			
+			for(int i=0; i<sortList.size(); i++) {
+				System.out.println(sortList.get(i));
+			}
+			
+		}
+		
+		
 }
