@@ -36,7 +36,6 @@ public class BookMenu {
 		}
 		
 	}
-	
 	public void insertBook() {
 		
 		System.out.print("도서 제목 : ");
@@ -53,7 +52,6 @@ public class BookMenu {
 		
 		bm.insertBook(book);
 	}
-	
 	public void deleteBook() {
 		
 		selectList();
